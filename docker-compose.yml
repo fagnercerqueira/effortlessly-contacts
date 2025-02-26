@@ -1,0 +1,31 @@
+services:
+  client:
+    build: ./client
+    ports:
+      - '5173:5173'
+    environment:
+      - VITE_APP_API=http://api:3000
+    depends_on:
+      - api
+
+  api:
+    build: ./api
+    ports:
+      - '3001:3000'
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: Senhadificil123
+      DATABASE_NAME: effortlessly
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: effortlessly
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Senhadificil123
+    ports:
+      - '5432:5432'
