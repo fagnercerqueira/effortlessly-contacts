@@ -1,23 +1,30 @@
 services:
   client:
     build: ./client
+    restart: always
     ports:
       - '5173:5173'
     environment:
       - VITE_APP_API=http://api:3000
+    volumes:
+      - ./client:/app
+      - /app/node_modules
     depends_on:
       - api
 
   api:
     build: ./api
     ports:
-      - '3001:3000'
+      - "3001:3000"
     environment:
       DATABASE_HOST: db
       DATABASE_PORT: 5432
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: Senhadificil123
       DATABASE_NAME: effortlessly
+    volumes:
+      - ./api:/app  # Monta o código-fonte no contêiner
+      - /app/node_modules  # Evita conflitos entre pacotes do host e do contêiner
     depends_on:
       - db
 

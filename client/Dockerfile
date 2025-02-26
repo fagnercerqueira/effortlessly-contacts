@@ -1,20 +1,20 @@
-# Use the official Node.js image as the base image (version 20)
+# Use the official Node.js version from https://hub.docker.com/
 FROM node:20
 
-# Set the working directory inside the container
-WORKDIR /usr/src/app
+# Set the working directory inside the container to /app
+WORKDIR /app
 
-# Copy package.json and package-lock.json files
-COPY package*.json ./
+# Copy only the package.json file to the working directory
+COPY package.json .
 
-# Install dependencies
+# Install npm dependencies based on the package.json
 RUN npm install
 
-# Copy the rest of the application code
+# Copy the rest of the application code to the working directory
 COPY . .
 
-# Expose the port the app runs on
-EXPOSE 5173
+# Expose port 5002 to allow external access
+EXPOSE 5002
 
-# Define the command to run the Vite dev server
-CMD ["npm", "run", "dev", "--", "--host"]
+# Specify the command to run the application when the container starts
+CMD [ "npm", "run", "dev"]
