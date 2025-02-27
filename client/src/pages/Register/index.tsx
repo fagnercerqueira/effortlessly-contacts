@@ -14,13 +14,14 @@ import {
 function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [nome, setNome] = useState('');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log({
       email,
+      nome,
       password,
-      rememberMe
     });
   };
 
@@ -57,6 +58,18 @@ function App() {
               margin="normal"
               required
               fullWidth
+              id="nome"
+              label="Nome"
+              name="nome"
+              autoComplete="nome"
+              autoFocus
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
               id="email"
               label="Email"
               name="email"
@@ -86,8 +99,8 @@ function App() {
               Entrar
             </Button>
             <Stack>
-                <Link component={RouterLink} to="/register" variant="subtitle2">
-                  É novo aqui? Criar conta
+                <Link component={RouterLink} to="/login" variant="subtitle2">
+                    Voltar para o login
                 </Link>
             </Stack>
           </Box>
