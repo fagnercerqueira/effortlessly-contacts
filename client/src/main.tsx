@@ -4,12 +4,12 @@ import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import {
   createBrowserRouter,
   RouterProvider,
-  NavLink,
   useLocation,
   useOutlet,
 } from 'react-router-dom'
+import ThemeProvider from '../theme'
 import Home from "./pages/Home";
-import Auth from "./pages/Auth";
+import Login from "./pages/Login";
 import './index.css'
 
 interface Route {
@@ -21,7 +21,7 @@ interface Route {
 
 const routes: Route[] = [
   { path: '/', name: 'Home', element: <Home />, nodeRef: createRef() },
-  { path: '/auth', name: 'Auth', element: <Auth />, nodeRef: createRef() },
+  { path: '/login', name: 'Login', element: <Login />, nodeRef: createRef() },
 ]
 
 const router = createBrowserRouter([
@@ -42,14 +42,7 @@ function App() {
   const { nodeRef } = routes.find((route) => route.path === location.pathname) ?? {};
 
   return (
-    <>
-      <NavLink key="home" to="/" className={({ isActive }) => (isActive ? 'active' : undefined)} end>
-        home
-      </NavLink>
-      <NavLink key="auth" to="/auth" className={({ isActive }) => (isActive ? 'active' : undefined)} end>
-        auth
-      </NavLink>
-
+    <ThemeProvider>
       <SwitchTransition>
         <CSSTransition
           key={location.pathname}
@@ -58,14 +51,14 @@ function App() {
           classNames="page"
           unmountOnExit
         >
-          {(state) => (
+          {() => (
             <div ref={nodeRef} className="page">
               {currentOutlet}
             </div>
           )}
         </CSSTransition>
       </SwitchTransition>
-    </>
+    </ThemeProvider>
   )
 }
 

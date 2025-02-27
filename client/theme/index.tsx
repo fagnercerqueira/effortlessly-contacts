@@ -18,7 +18,11 @@ type Props = {
     children: React.ReactNode;
 };
 
+
+
 export default function ThemeProvider({ children }: Props) {
+
+
   return (
     <MuiThemeProvider theme={theme}>
         <CssBaseline />
