@@ -51,7 +51,7 @@ function App() {
           }}
         >
           <Typography component="h1" variant="h5" sx={{ mb: 3 }}>
-            Entrar
+            Cadastre-se
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '100%' }}>
             <TextField

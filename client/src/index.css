@@ -22,6 +22,15 @@ a:hover {
   color: #535bf2;
 }
 
+#root{
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background-color: #e0e0e0;
+}
+
 body {
   margin: 0;
   display: flex;
@@ -66,6 +75,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
 
 
 .page-enter {
