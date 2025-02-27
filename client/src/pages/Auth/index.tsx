@@ -1,6 +1,14 @@
-// src/components/About.jsx
-import React from 'react';
+import Button from '@mui/material/Button';
 
-const About = () => <h1>Auth</h1>;
+function Auth () {
 
-export default About;
+    return(
+        <>
+         <h1>Auth</h1>
+         <Button variant="contained">Hello world</Button>
+        </>
+    )
+   
+};
+
+export default Auth;
