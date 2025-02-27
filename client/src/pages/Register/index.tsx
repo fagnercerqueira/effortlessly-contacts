@@ -99,7 +99,7 @@ function App() {
               Entrar
             </Button>
             <Stack>
-                <Link component={RouterLink} to="/login" variant="subtitle2">
+                <Link component={RouterLink} to="/login" variant="subtitle2" align="center">
                     Voltar para o login
                 </Link>
             </Stack>

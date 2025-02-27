@@ -86,7 +86,7 @@ function App() {
               Entrar
             </Button>
             <Stack>
-                <Link component={RouterLink} to="/register" variant="subtitle2">
+                <Link component={RouterLink} to="/register" variant="subtitle2" align="center">
                   É novo aqui? Criar conta
                 </Link>
             </Stack>
