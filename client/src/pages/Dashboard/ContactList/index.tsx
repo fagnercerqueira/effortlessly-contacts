@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useState, SetStateAction} from 'react';
 import { 
   Box, 
   List, 
@@ -6,21 +6,28 @@ import {
   ListItemText, 
   IconButton, 
   Typography, 
-  Button, 
   Paper, 
-  Divider 
+  Divider,
+  TextField, 
+  Button, 
+  InputAdornment
 } from '@mui/material';
-import { Delete, PersonOutline, Add } from '@mui/icons-material';
-import { Contact } from '../types';
+import {  Search,  PersonAdd, PersonOutline, Add, Delete  } from '@mui/icons-material';
+import { Contact } from '../../../types/contact-type';
 
 interface ContactListProps {
-  contacts: Contact[];
-  onRemove: (id: string) => void;
-  onAddNew: () => void;
+setOpenDialog: React.Dispatch<SetStateAction<boolean>>,
 }
 
-function ContactList ({ contacts, onRemove, onAddNew } : ContactListProps) {
-  if (contacts.length === 0) {
+function ContactList ({ setOpenDialog } : ContactListProps) {
+
+  const contactList : Array<Contact> = [];
+  const [searchTerm, setSearchTerm] = useState<string>();
+  const onRemove = (id: string) => {
+    console.log('[ID]', id);
+  }
+
+  if (contactList.length === 0) {
     return (
       <Paper 
         elevation={0} 
@@ -33,6 +40,38 @@ function ContactList ({ contacts, onRemove, onAddNew } : ContactListProps) {
           borderColor: 'divider'
         }}
       >
+
+          <Typography variant="h5" component="h2" fontWeight="bold" gutterBottom>
+            Lista de Contatos
+          </Typography>
+          
+          <Box sx={{ display: 'flex', mb: 2, gap: 1 }}>
+            <TextField
+              fullWidth
+              placeholder="Buscar contatos..."
+              variant="outlined"
+              size="small"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<PersonAdd />}
+              onClick={() => setOpenDialog(true)}
+              sx={{ whiteSpace: 'nowrap' }}
+            >
+              Novo
+            </Button>
+          </Box>
+
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
           <Box 
             sx={{ 
@@ -57,7 +96,6 @@ function ContactList ({ contacts, onRemove, onAddNew } : ContactListProps) {
         <Button 
           variant="contained" 
           startIcon={<Add />} 
-          onClick={onAddNew}
           sx={{ mt: 2 }}
         >
           Adicionar contato
@@ -76,11 +114,11 @@ function ContactList ({ contacts, onRemove, onAddNew } : ContactListProps) {
       }}
     >
       <List disablePadding>
-        {contacts.map((contact, index) => (
+        {contactList.map((contact, index) => (
           <React.Fragment key={contact?.id}>
             <ListItem alignItems="flex-start" 
             secondaryAction={
-                <IconButton edge="end" aria-label="delete" onClick={() => onRemove(contact?.id)}>
+                <IconButton edge="end" aria-label="delete" onClick={() => onRemove(contact.id)}>
                   <Delete />
                 </IconButton>
             }>
@@ -103,7 +141,7 @@ function ContactList ({ contacts, onRemove, onAddNew } : ContactListProps) {
                 }
               />
             </ListItem>
-            {index < contacts.length - 1 && <Divider component="li" />}
+            {index < contactList.length - 1 && <Divider component="li" />}
           </React.Fragment>
         ))}
       </List>

@@ -8,9 +8,10 @@ import {
   useOutlet,
 } from 'react-router-dom'
 import ThemeProvider from '../theme'
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+import { ContactProvider } from './provider/contact-provider'
 import './index.css'
 
 interface Route {
@@ -46,21 +47,23 @@ function App() {
 
   return (
     <ThemeProvider>
-      <SwitchTransition>
-        <CSSTransition
-          key={location.pathname}
-          nodeRef={nodeRef}
-          timeout={300}
-          classNames="page"
-          unmountOnExit
-        >
-          {() => (
-            <div ref={nodeRef} className="page">
-              {currentOutlet}
-            </div>
-          )}
-        </CSSTransition>
-      </SwitchTransition>
+      <ContactProvider>
+        <SwitchTransition>
+          <CSSTransition
+            key={location.pathname}
+            nodeRef={nodeRef}
+            timeout={300}
+            classNames="page"
+            unmountOnExit
+          >
+            {() => (
+              <div ref={nodeRef} className="page">
+                {currentOutlet}
+              </div>
+            )}
+          </CSSTransition>
+        </SwitchTransition>
+      </ContactProvider>
     </ThemeProvider>
   )
 }

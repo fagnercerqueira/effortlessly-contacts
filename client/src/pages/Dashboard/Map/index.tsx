@@ -1,11 +1,8 @@
 import { Box, Typography } from '@mui/material';
-import { Contact } from '../types.ts';
+import { Contact } from '../../../types/contact-type.ts';
 
-interface MapProps {
-  contacts: Contact[];
-}
 
-function Map ({ contacts } : MapProps) {
+function Map () {
   return (
     <Box 
       sx={{ 
@@ -20,11 +17,11 @@ function Map ({ contacts } : MapProps) {
         justifyContent: 'center'
       }}
     >
-      {contacts.length === 0 && (
+      {/* {contacts.length === 0 && (
         <Typography variant="body1" color="text.secondary">
           Adicione contatos para visualizá-los no mapa
         </Typography>
-      )}
+      )} */}
     </Box>
   );
 };

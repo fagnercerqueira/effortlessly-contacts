@@ -11,6 +11,6 @@ export interface Contact {
     bairro: string;
     cidade: string;
     estado: string;
-    latitude: number,
-    longitude: number,
+    latitude: number;
+    longitude: number;
   }
