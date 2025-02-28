@@ -13,19 +13,21 @@ import {
   InputAdornment
 } from '@mui/material';
 import {  Search,  PersonAdd, PersonOutline, Add, Delete  } from '@mui/icons-material';
-import { Contact } from '../../../types/contact-type';
+import { useContactContext } from '../../../hooks/use-contat-context';
 
 interface ContactListProps {
-setOpenDialog: React.Dispatch<SetStateAction<boolean>>,
+    setOpenDialog: React.Dispatch<SetStateAction<boolean>>,
 }
 
 function ContactList ({ setOpenDialog } : ContactListProps) {
 
-  const contactList : Array<Contact> = [];
+  const contactList = useContactContext();
   const [searchTerm, setSearchTerm] = useState<string>();
   const onRemove = (id: string) => {
     console.log('[ID]', id);
   }
+
+  console.log('contactList', contactList)
 
   if (contactList.length === 0) {
     return (

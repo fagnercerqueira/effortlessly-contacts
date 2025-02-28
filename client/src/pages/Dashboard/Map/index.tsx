@@ -1,8 +1,10 @@
 import { Box, Typography } from '@mui/material';
-import { Contact } from '../../../types/contact-type.ts';
-
+import { useContactContext } from '../../../hooks/use-contat-context';
 
 function Map () {
+
+  const contactList = useContactContext();
+
   return (
     <Box 
       sx={{ 
@@ -17,11 +19,11 @@ function Map () {
         justifyContent: 'center'
       }}
     >
-      {/* {contacts.length === 0 && (
+      {contactList.length === 0 && (
         <Typography variant="body1" color="text.secondary">
           Adicione contatos para visualizá-los no mapa
         </Typography>
-      )} */}
+      )}
     </Box>
   );
 };
