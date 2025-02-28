@@ -11,7 +11,7 @@ import {
   Stack,
 } from '@mui/material';
 
-function App() {
+function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nome, setNome] = useState('');
@@ -110,4 +110,4 @@ function App() {
   );
 }
 
-export default App;
+export default Register;

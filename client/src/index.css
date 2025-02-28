@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #fff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -28,7 +28,7 @@ a:hover {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  background-color: #e0e0e0;
+  background-color: #fff;
 }
 
 body {
@@ -76,8 +76,9 @@ button:focus-visible {
   }
 }
 
-
-
+.page{
+  width: 100%;
+}
 .page-enter {
   opacity: 0;
   transform: scale(1.1);

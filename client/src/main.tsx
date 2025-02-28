@@ -10,6 +10,7 @@ import {
 import ThemeProvider from '../theme'
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
 import './index.css'
 
 interface Route {
@@ -23,6 +24,7 @@ const routes: Route[] = [
   { path: '/', name: 'Login', element: <Login />, nodeRef: createRef() },
   { path: '/login', name: 'Login', element: <Login />, nodeRef: createRef() },
   { path: '/register', name: 'Register', element: <Register />, nodeRef: createRef() },
+  { path: '/dashboard', name: 'Dashboard', element: <Dashboard />, nodeRef: createRef() },
 ]
 
 const router = createBrowserRouter([

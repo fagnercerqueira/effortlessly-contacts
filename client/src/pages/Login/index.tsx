@@ -10,8 +10,9 @@ import {
   Link,
   Stack,
 } from '@mui/material';
+import { grey } from '@mui/material/colors';
 
-function App() {
+function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -20,7 +21,6 @@ function App() {
     console.log({
       email,
       password,
-      rememberMe
     });
   };
 
@@ -29,7 +29,7 @@ function App() {
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
     }}>
       <Box
         sx={{
@@ -97,4 +97,4 @@ function App() {
   );
 }
 
-export default App;
+export default Login;
