@@ -1,16 +1,26 @@
-import { useState } from 'react';
-
+import { useState, useMemo } from 'react';
 import { ContactContext } from '../context/contact-context';
-import { Contact } from '../types/contact-type';
+import { Contact, ContactContextType } from '../types/contact-type';
 
 type Props = {
     children: React.ReactNode;
 };
 
+
 export function ContactProvider({ children }: Props) {
+  const [contacts, setContacts] = useState<Array<Contact>>([]);
 
-  const [contactList, setContacts] = useState<Array<Contact>>([]);
+  const addContact = (contact: Contact) => setContacts((prevContacts) => [...prevContacts, contact]);
+  const removeContact = (id: number) => { setContacts((prevContacts) => prevContacts.filter((_, i) => i !== id))};
 
+  const memoizedValue: ContactContextType = useMemo(
+    () => ({
+        contactList: contacts,
+        addContact,
+        removeContact,
+    }),
+    [contacts]
+  );
 
-  return <ContactContext.Provider value={contactList}>{children}</ContactContext.Provider>;
+  return <ContactContext.Provider value={memoizedValue}>{children}</ContactContext.Provider>;
 }

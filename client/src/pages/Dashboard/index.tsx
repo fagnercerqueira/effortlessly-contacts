@@ -49,8 +49,7 @@ function App() {
           </Paper>
         </Grid>
       </Grid>
-      
-      <ContactDialog open={openDialog} onClose={setOpenDialog}/>
+      <ContactDialog open={openDialog} setOpenDialog={setOpenDialog}/>
     </Container>
   );
 }

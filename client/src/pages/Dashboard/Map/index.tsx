@@ -3,7 +3,7 @@ import { useContactContext } from '../../../hooks/use-contat-context';
 
 function Map () {
 
-  const contactList = useContactContext();
+  const { contactList } = useContactContext();
 
   return (
     <Box 
