@@ -11,13 +11,20 @@ export interface Contact {
     bairro: string;
     cidade: string;
     estado: string;
-    latitude?: number;
-    longitude?: number;
-  }
+    latitude: number;
+    longitude: number;
+}
 
 
-  export interface ContactContextType{
+export interface ContactContextType{
+    pickedContact: Coords | null,
     contactList: Array<Contact>;
     addContact: (contact: Contact) => void;
     removeContact: (id: number) => void;
+    setPickedContact: (coords: Coords) => void;
 };
+
+export interface Coords{
+  lat: number,
+  lng: number,
+}

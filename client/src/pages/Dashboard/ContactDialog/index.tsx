@@ -1,5 +1,6 @@
 import { SetStateAction, useCallback, useRef, useEffect, useState } from 'react';
 import { FormProvider, useForm, Controller} from 'react-hook-form';
+import * as opencage from 'opencage-api-client'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormSchema } from './schema';
 import debounce from 'lodash.debounce';
@@ -22,7 +23,7 @@ import { Close } from '@mui/icons-material';
 import Grid from '@mui/material/Grid2';
 import { Contact } from '../../../types/contact-type';
 import { useContactContext } from '../../../hooks/use-contat-context';
-import * as opencage from 'opencage-api-client'
+
 
 type ContactDialogProps = {
   open: boolean,
@@ -64,6 +65,8 @@ function formatCPF(cpf: string) {
 }
 
 function ContactDialog({ open, setOpenDialog } : ContactDialogProps){
+
+  const OPENCAGE_API_KEY = import.meta.env.VITE_OPENCAGE_API_KEY;
 
   const { addContact } = useContactContext();
   const [coords, setCoords] = useState<Coords>({lat: null, lng: null});
@@ -111,7 +114,7 @@ function ContactDialog({ open, setOpenDialog } : ContactDialogProps){
 
 
   const getCoords = (query: string) => {
-    opencage.geocode({ key: "f72ceb1afd7a46cb90af390412eb63e0", q: query })
+    opencage.geocode({ key: OPENCAGE_API_KEY, q: query })
         .then((response) => {
           setCoords(response?.results[0].geometry)
         })
@@ -400,7 +403,7 @@ function ContactDialog({ open, setOpenDialog } : ContactDialogProps){
                             )}
                           />
                           <FormHelperText error>
-                            {errors?.complemento?.message}
+                            {errors?.estado?.message}
                           </FormHelperText>    
                         </FormControl>
                       </Grid>

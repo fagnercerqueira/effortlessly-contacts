@@ -21,12 +21,11 @@ interface ContactListProps {
 }
 
 function ContactList ({ setOpenDialog } : ContactListProps) {
-  const { contactList, removeContact} = useContactContext();
+  const { contactList, removeContact, setPickedContact} = useContactContext();
   const [searchTerm, setSearchTerm] = useState<string>();
   
   const onRemove = (id: number) => removeContact(id);
 
-  console.log('contactList', contactList)
 
   return(
     <>
@@ -126,6 +125,7 @@ function ContactList ({ setOpenDialog } : ContactListProps) {
                                         <Typography component="span" variant="body2"  sx={{display: "flex", my: 1}} noWrap>
                                             {contact?.cep}
                                         </Typography>
+                                        <Button variant="contained" color="primary" onClick={()=> setPickedContact({lat: contact.latitude, lng: contact.longitude})}>Ver no mapa</Button>
                                     </React.Fragment>
                             }
                         />

@@ -17,6 +17,7 @@
     "@mui/lab": "^6.0.0-beta.29",
     "@mui/material": "^6.4.6",
     "@types/node": "^22.13.5",
+    "@vis.gl/react-google-maps": "^1.5.1",
     "lodash.debounce": "^4.0.8",
     "opencage-api-client": "^1.0.7",
     "react": "^19.0.0",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@types/lodash.debounce": "^4.0.9",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@types/react-transition-group": "^4.4.12",
