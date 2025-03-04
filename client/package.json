@@ -18,6 +18,7 @@
     "@mui/material": "^6.4.6",
     "@types/node": "^22.13.5",
     "lodash.debounce": "^4.0.8",
+    "opencage-api-client": "^1.0.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",

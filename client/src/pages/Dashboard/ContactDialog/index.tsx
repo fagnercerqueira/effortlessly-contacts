@@ -1,4 +1,4 @@
-import { SetStateAction, useCallback, useRef, useEffect } from 'react';
+import { SetStateAction, useCallback, useRef, useEffect, useState } from 'react';
 import { FormProvider, useForm, Controller} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormSchema } from './schema';
@@ -22,25 +22,31 @@ import { Close } from '@mui/icons-material';
 import Grid from '@mui/material/Grid2';
 import { Contact } from '../../../types/contact-type';
 import { useContactContext } from '../../../hooks/use-contat-context';
+import * as opencage from 'opencage-api-client'
 
 type ContactDialogProps = {
   open: boolean,
   setOpenDialog: React.Dispatch<SetStateAction<boolean>>,
 }
 
+type Coords = {
+  lat: number | null,
+  lng: number | null,
+}
+
 const defaultValues = {
   id: '',
-  nome: 'Fagner',
-  cpf: '10373506694',
-  email: 'souofagner@gmail.com',
-  telefone: '32999725694',
-  cep: '36889028',
-  logradouro: 'Rua Tal',
-  numero: '255',
-  complemento: 'Ap. 201',
-  bairro: 'Gávea',
-  cidade: 'Muriaé',
-  estado: 'MG',
+  nome: '',
+  cpf: '',
+  email: '',
+  telefone: '',
+  cep: '',
+  logradouro: '',
+  numero: '',
+  complemento: '',
+  bairro: '',
+  cidade: '',
+  estado: '',
 };
 
 function formatCep(cep: string): string {
@@ -60,6 +66,7 @@ function formatCPF(cpf: string) {
 function ContactDialog({ open, setOpenDialog } : ContactDialogProps){
 
   const { addContact } = useContactContext();
+  const [coords, setCoords] = useState<Coords>({lat: null, lng: null});
 
   const methods = useForm<Omit<Contact, 'id' | 'latitude' | 'longitude'>>({
     resolver: yupResolver(FormSchema),
@@ -77,12 +84,17 @@ function ContactDialog({ open, setOpenDialog } : ContactDialogProps){
 
   const onSubmit = useCallback(
     async (data: Omit<Contact, 'id' | 'latitude' | 'longitude'>) => {
+
+      //@todo send a notification
+      if(!coords.lat || !coords.lng) return
+
       await new Promise((resolve) => setTimeout(resolve, 3000));
-      addContact(data);
+
+      addContact({...data, latitude: coords.lat, longitude: coords.lng});
       reset();
       setOpenDialog(false);
     },
-    [reset]
+    [reset, coords]
   );
 
   const debouncedSearch = useRef(
@@ -98,6 +110,18 @@ function ContactDialog({ open, setOpenDialog } : ContactDialogProps){
   }, [debouncedSearch]);
 
 
+  const getCoords = (query: string) => {
+    opencage.geocode({ key: "f72ceb1afd7a46cb90af390412eb63e0", q: query })
+        .then((response) => {
+          setCoords(response?.results[0].geometry)
+        })
+        .catch((err) => {
+          console.error(err)
+          setCoords({lat: null, lng: null})
+        })
+        .finally(() => {
+        })
+  }
 
   const getCep = async (cep: string) =>  {
     const searchCep = cep.replace("-", "");
@@ -110,6 +134,10 @@ function ContactDialog({ open, setOpenDialog } : ContactDialogProps){
           setValue("cidade", data.localidade);
           setValue("bairro", data.bairro);
           setValue("logradouro", data.logradouro);
+
+          const query = `${data.logradouro} ${data.bairro} ${data.localidade} ${data.estado}`
+          getCoords(query);
+
         } catch(err){
           throw new Error(`an error occurred while trying to fill in the fields- ${err}`);
         }
@@ -382,7 +410,7 @@ function ContactDialog({ open, setOpenDialog } : ContactDialogProps){
                 
                 <DialogActions>
                   <Button onClick={() => setOpenDialog(false)}>Cancelar</Button>
-                  <Button variant="contained" type="submit">Adicionar</Button>
+                  <Button variant="contained" type="submit" disabled={!coords?.lat || !coords?.lng}>Adicionar</Button>
                 </DialogActions>
               </form>
             </Dialog>
